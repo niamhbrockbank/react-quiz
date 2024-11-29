@@ -1,17 +1,29 @@
 import { useState } from "react";
+import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
 
   const activeQuestionIndex = userAnswers.length;
-  const activeQuestion = QUESTIONS[activeQuestionIndex];
-  const shuffledAnswers = [...activeQuestion.answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
 
   function handleSelectAnswer(selectedAnswer) {
     setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
   }
+
+  if (quizIsComplete) {
+    return (
+      <div id="summary">
+        <img src={quizCompleteImg} alt="Trophy Icon" />
+        <h2>Quiz Complete</h2>
+      </div>
+    );
+  }
+
+  const activeQuestion = QUESTIONS[activeQuestionIndex];
+  const shuffledAnswers = [...activeQuestion.answers];
+  shuffledAnswers.sort(() => Math.random() - 0.5);
+  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   return (
     <div id="quiz">
