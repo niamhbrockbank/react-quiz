@@ -6,6 +6,8 @@ export default function Quiz() {
 
   const activeQuestionIndex = userAnswers.length;
   const activeQuestion = QUESTIONS[activeQuestionIndex];
+  const shuffledAnswers = [...activeQuestion.answers];
+  shuffledAnswers.sort(() => Math.random() - 0.5);
 
   function handleSelectAnswer(selectedAnswer) {
     setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
