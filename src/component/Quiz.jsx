@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions";
 import QuestionTimer from "./QuestionTimer";
 
 export default function Quiz() {
+  const shuffledAnswers = useRef();
   const [answerState, setAnswerState] = useState("");
   const [userAnswers, setUserAnswers] = useState([]);
 
@@ -46,8 +47,10 @@ export default function Quiz() {
   }
 
   const activeQuestion = QUESTIONS[activeQuestionIndex];
-  const shuffledAnswers = [...activeQuestion.answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+  if (!shuffledAnswers.current) {
+    shuffledAnswers.current = [...activeQuestion.answers];
+    shuffledAnswers.current.sort(() => Math.random() - 0.5);
+  }
 
   return (
     <div id="quiz">
@@ -59,7 +62,7 @@ export default function Quiz() {
         />
         <h2>{activeQuestion.text}</h2>
         <ul id="answers">
-          {shuffledAnswers.map((answer) => {
+          {shuffledAnswers.current.map((answer) => {
             let cssClass = "";
             const isSelected = userAnswers[userAnswers.length - 1] === answer;
 
