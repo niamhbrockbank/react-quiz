@@ -26,9 +26,6 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
     });
 
     setTimeout(() => {
-      console.log(
-        `selected answer ${answer} \n correct ${QUESTIONS[index].answers[0]}`
-      );
       setAnswer({
         selectedAnswer: answer,
         isCorrect: answer === QUESTIONS[index].answers[0],
@@ -46,9 +43,6 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
   } else if (answer.selectedAnswer) {
     answerState = "answered";
   }
-
-  console.log(`answer state: ${answerState}`);
-  console.log(`answerState: isCorrect: ${answer.isCorrect}`);
 
   return (
     <div id="question">
