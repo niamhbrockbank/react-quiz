@@ -11,6 +11,8 @@ export default function Quiz() {
     setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
   }
 
+  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
+
   if (quizIsComplete) {
     return (
       <div id="summary">
@@ -23,7 +25,6 @@ export default function Quiz() {
   const activeQuestion = QUESTIONS[activeQuestionIndex];
   const shuffledAnswers = [...activeQuestion.answers];
   shuffledAnswers.sort(() => Math.random() - 0.5);
-  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   return (
     <div id="quiz">
